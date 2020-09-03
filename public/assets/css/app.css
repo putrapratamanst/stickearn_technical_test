@@ -1,0 +1,45 @@
+.middle-content{
+    background-color: #ffffff;
+    width: 300px;
+    height: 500px;
+    border: 15px solid #502f86;
+    padding-top: 20px;
+    padding-bottom: 50px;
+    margin: 40px;
+    border-radius: 25px;
+
+}
+body{
+    background-color: #6f42c1 !important;
+};
+ .blink {
+        background-color: #1c87c9;
+        -webkit-border-radius: 60px;
+        border-radius: 60px;
+        border: none;
+        color: #eeeeee;
+        cursor: pointer;
+        display: inline-block;
+        font-family: sans-serif;
+        font-size: 20px;
+        padding: 10px 10px;
+        text-align: center;
+        text-decoration: none;
+      }
+      @keyframes glowing {
+        0% {
+          background-color: #502f86;
+          box-shadow: 0 0 5px #502f86;
+        }
+        50% {
+          background-color: #8262b8;
+          box-shadow: 0 0 20px #8262b8;
+        }
+        100% {
+          background-color: #502f86;
+          box-shadow: 0 0 5px #502f86;
+        }
+      }
+      .blink {
+        animation: glowing 1300ms infinite;
+      }
