@@ -22,4 +22,6 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/player/form', 'PlayerController@form');
 Route::post('/player/create', 'PlayerController@create');
-Route::get('/scramble/playground', 'ScramblerController@playground');
+Route::get('/scrambler/playground', 'ScramblerController@playground');
+Route::post('/scrambler/check', 'ScramblerController@check');
+Route::get('/scrambler/generate', 'ScramblerController@generate');
