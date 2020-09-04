@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Repository\PlayerRepository;
+use App\Traits\PlayerTrait;
 use Illuminate\Http\Request;
 
 class PlayerController extends Controller
 {
+    use PlayerTrait;
     /**
      * Create a new controller instance.
      *
@@ -28,10 +31,19 @@ class PlayerController extends Controller
 
     public function create(Request $request)
     {
-        $validate = $request->validate([
-            'username' => 'required|unique:player|max:255',
+        $repository = new PlayerRepository();
+        $request->validate([
+            'username' => 'required|min:5',
+            'password' => 'required|min:5',
         ]);
-        die(json_encode($request));
-        die("sdf");
+        session(['key' => 'value']);
+
+        $dataPlayer = $repository->detailPlayer($request->username, $request->password);
+        if(!$dataPlayer)
+            $dataPlayer = $repository->createPlayer($request);
+        
+        $this->setSessionPlayer($dataPlayer);
+        
+        return redirect('/scramble/playground');
     }
 }
