@@ -1,4 +1,5 @@
 @extends('layouts.main')
 @section('content')
-bikin form
-@endsection
+{{ Form::open(array('url' => 'foo/bar')) }}
+//
+{{ Form::close() }}@endsection
