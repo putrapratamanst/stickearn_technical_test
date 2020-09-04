@@ -11,7 +11,8 @@
 
 }
 body{
-    background-color: #6f42c1 !important;
+	background-color: #6f42c1 !important;
+	font-family: Nunito;
 };
 .blink {
 	background-color: #1c87c9;
@@ -61,4 +62,14 @@ body{
 	top: 50%;
 	transform: translate(-50%,-50%);
 	font: 14px arial;
+}
+
+
+#form-player {
+	left: 50%;
+    top: 50%;
+    width: 230px;
+    margin-top: -69px; /* height/2 */
+    margin-left: -115px; /* width/2 */
+    position: absolute;
 }
