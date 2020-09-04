@@ -6,7 +6,7 @@ use App\Models\Player;
 
 class PlayerRepository
 {
-    public function createPlayer($request)
+    public static function createPlayer($request)
     {
         $model           = new Player();
         $model->username = $request->username;
