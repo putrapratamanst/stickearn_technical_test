@@ -91,3 +91,12 @@ body{
 	text-align: center;
 	text-decoration: none;
 }
+
+.gameArea {
+	height: 300px;
+	border: 15px solid #fad97c;
+	padding: 8px;
+	margin: 20px;
+	background-color: #f9b800;
+	border-radius: 27px;
+}
