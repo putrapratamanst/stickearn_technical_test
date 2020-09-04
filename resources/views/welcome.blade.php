@@ -13,7 +13,7 @@
 
 <p style="text-align: center;">
     <img src="{{ asset('assets/images/logo.jpg') }}" width="350" height="350" ">
-    <span style=" font-family: 'Nunito Sans' ;font-size: 22px;"> Click <a href="/player/create" class="btn btn-dark blink">PLAY</a> To Start the Game</span>
+    <span style=" font-family: 'Nunito Sans' ;font-size: 22px;"> Click <a href="/player/form" class="btn btn-dark blink">PLAY</a> To Start the Game</span>
 
 </p>
 
