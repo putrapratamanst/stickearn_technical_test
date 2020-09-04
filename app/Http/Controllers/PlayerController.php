@@ -44,6 +44,6 @@ class PlayerController extends Controller
         
         $this->setSessionPlayer($dataPlayer);
         
-        return redirect('/scramble/playground');
+        return redirect('/scrambler/playground');
     }
 }
