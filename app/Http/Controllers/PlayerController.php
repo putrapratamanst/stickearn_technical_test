@@ -21,8 +21,17 @@ class PlayerController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function create()
+    public function form()
     {
         return view('/player/form');
+    }
+
+    public function create(Request $request)
+    {
+        $validate = $request->validate([
+            'username' => 'required|unique:player|max:255',
+        ]);
+        die(json_encode($request));
+        die("sdf");
     }
 }
