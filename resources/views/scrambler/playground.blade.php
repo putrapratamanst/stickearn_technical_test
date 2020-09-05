@@ -2,7 +2,7 @@
 @section('content')
 
 
-<div class="preloader">
+<div class="preloader" style="display: none;">
     <div class="loading">
         <img src="{{ asset('assets/images/logo.gif') }}">
     </div>
@@ -20,7 +20,7 @@
                     <a class="dropdown-item" href="#">History Game</a>
                     <a class="dropdown-item" href="#">Another action</a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">Quit Game</a>
+                    <a class="dropdown-item" href="/" onclick="return confirm('Are you sure to quit the game?')">Quit Game</a>
                 </div>
             </li>
         </ul>
