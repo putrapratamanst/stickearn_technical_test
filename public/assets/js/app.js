@@ -4,6 +4,7 @@ $(document).ready(function () {
 
 
 var original = "";
+var scramble = "";
 $(document).ready(function () {
 
     $("#next").click(function () {
@@ -23,6 +24,7 @@ $(document).ready(function () {
             method: "get",
             success: function (responseGenerate) {
                 original = responseGenerate.original_word;
+                scramble = responseGenerate.scramble_word;
                 $('span#scramble-word').text("(" + responseGenerate.scramble_word + ")");
                 $('.preloader').hide();
 
@@ -64,6 +66,7 @@ $(document).ready(function () {
             method: 'post',
             data: {
                 original_word: original,
+                scramble_word: scramble,
                 form : $('#form-playground').serialize(),
             },
 
