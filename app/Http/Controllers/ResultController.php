@@ -16,4 +16,15 @@ class ResultController extends Controller
             'scores' => $getScore
         ]);
     }
+
+    public function historyInAdmin($playerId)
+    {
+        $scoreRepo = new ResultRepository();
+        $getScore  = $scoreRepo->list($playerId);
+
+        return view('/admin/history-player', [
+            'scores' => $getScore
+        ]);
+    }
+
 }

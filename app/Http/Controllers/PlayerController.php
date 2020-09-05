@@ -32,7 +32,7 @@ class PlayerController extends Controller
     public function create(Request $request)
     {
         $repository = new PlayerRepository();
-        $validator = $request->validate([
+        $request->validate([
             'username' => 'required|min:5',
             'password' => 'required|min:5',
         ]);
