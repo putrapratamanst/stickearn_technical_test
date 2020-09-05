@@ -8,7 +8,7 @@
                     MENU
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="scrambler/playground">Play Game!</a>
+                    <a class="dropdown-item" href="/scrambler/playground">Play Game!</a>
                     <a class="dropdown-item" href="/result/history">History Game</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="/" onclick="return confirm('Are you sure to quit the game?')">Quit Game</a>
