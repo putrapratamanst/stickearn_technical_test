@@ -140,3 +140,11 @@ ul.timeline > li:before {
     margin-left: auto;
     height: 276px;
 }
+
+.dashboard-admin {
+    background-color: aliceblue;
+    top: -55px;
+    width: 160px;
+    bottom: 9px;
+    padding: 9px;
+}
