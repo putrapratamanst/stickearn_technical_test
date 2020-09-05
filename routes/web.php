@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Route;
 // Route::get('', function (Request $request) {
 //     return view('/welcome');
 // });
+Route::get('/logout', 'Auth\LoginController@logout');
 Route::get('', 'ScramblerController@index');
 
 Auth::routes();
@@ -28,3 +29,4 @@ Route::post('/scrambler/check', 'ScramblerController@check')->middleware('check-
 Route::get('/scrambler/generate', 'ScramblerController@generate')->middleware('check-session');;
 Route::get('/score/get', 'ScoreController@getScore')->middleware('check-session');;
 Route::get('/result/history', 'ResultController@history')->middleware('check-session');;
+Route::get('/admin/result/history/{playerId}', 'ResultController@historyInAdmin')->middleware('check-session');;
