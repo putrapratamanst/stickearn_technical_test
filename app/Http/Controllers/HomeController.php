@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Repository\PlayerRepository;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -23,6 +24,12 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $repository = new PlayerRepository();
+        $lists       = $repository->listPlayer();
+
+        return view('/home', [
+            'lists' => $lists
+        ]);
+
     }
 }
