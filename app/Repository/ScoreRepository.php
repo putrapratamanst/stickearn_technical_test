@@ -8,7 +8,13 @@ class ScoreRepository
 {
     public static function scoreByPlayerId($idPlayer)
     {
-        return Score::where(['player_id' => $idPlayer])
+        return Score::where('player_id', $idPlayer)
             ->first();
+    }
+
+    public static function saveScore()
+    {
+        $model = new Score();
+        
     }
 }
