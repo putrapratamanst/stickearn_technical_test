@@ -18,8 +18,14 @@ class PlayerRepository
 
     public static function detailPlayer($username, $password)
     {
-        return Player::where(['username' => $username])
-            ->where(['password' => $password])
+        return Player::where('username', $username)
+            ->where('password',$password)
+            ->first();
+    }
+
+    public static function detailPlayerByUsername($username)
+    {
+        return Player::where('username', $username)
             ->first();
     }
 }
