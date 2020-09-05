@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    $(".preloader").fadeOut(5500);
+    $(".preloader").hide(5500);
 })
 
 
@@ -11,41 +11,40 @@ $(document).ready(function () {
         $('.form-player').removeClass('d-none');
         document.getElementById("form-playground").reset();
         generate()
+
     });
 
 
-    function clearConsole() {
-        if (window.console || window.console.firebug) {
-            console.clear();
-        }
-    }
-
     function generate() {
+        $('.preloader').show(300)
+
         $.ajax({
             url: "/scrambler/generate",
             method: "get",
             success: function (responseGenerate) {
                 original = responseGenerate.original_word;
                 $('span#scramble-word').text("(" + responseGenerate.scramble_word + ")");
-                clearConsole()
+                $('.preloader').hide();
+
             }
         })
     }
 
     function score() {
+        $('.preloader').show();
+
         $.ajax({
             url: "/score/get",
             method: "get",
-            success: function (responseGenerate) {
-                original = responseGenerate.original_word;
-                $('span#score').text(responseGenerate);
-                clearConsole()
+            success: function (responseScore) {
+                $('span#score').text(responseScore);
+                $('.preloader').hide();
             }
         })
     }
     if (window.location.href.indexOf("playground") > -1) {
-        generate()
-        score()
+        generate();
+        score();
     }
 
     $('#guess').click(function (e) {
@@ -56,6 +55,8 @@ $(document).ready(function () {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
+
+        $('.preloader').show();
 
         /* Submit form data using ajax*/
         $.ajax({
@@ -68,10 +69,12 @@ $(document).ready(function () {
 
             success: function (response) {
                 //------------------------
+                score();
                 $('#res_message').show();
                 $('span#res_message').text(response.message);
                 $('.form-guess').removeClass('d-none');
                 $('.form-player').addClass('d-none');
+                $('.preloader').hide();
 
                 // document.getElementById("form-playground").reset();
                 // setTimeout(function () {
