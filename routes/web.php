@@ -13,15 +13,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('', function (Request $request) {
+//     return view('/welcome');
+// });
+Route::get('', 'ScramblerController@index');
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/player/form', 'PlayerController@form');
 Route::post('/player/create', 'PlayerController@create');
-Route::get('/scrambler/playground', 'ScramblerController@playground');
-Route::post('/scrambler/check', 'ScramblerController@check');
-Route::get('/scrambler/generate', 'ScramblerController@generate');
+Route::get('/scrambler/playground', 'ScramblerController@playground')->middleware('check-session');
+Route::post('/scrambler/check', 'ScramblerController@check')->middleware('check-session');;
+Route::get('/scrambler/generate', 'ScramblerController@generate')->middleware('check-session');;
+Route::get('/score/get', 'ScoreController@getScore')->middleware('check-session');;
