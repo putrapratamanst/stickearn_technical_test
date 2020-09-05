@@ -24,7 +24,7 @@ class PlayerController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function form()
+    public function form(Request $request)
     {
         return view('/player/form');
     }
@@ -32,15 +32,20 @@ class PlayerController extends Controller
     public function create(Request $request)
     {
         $repository = new PlayerRepository();
-        $request->validate([
+        $validator = $request->validate([
             'username' => 'required|min:5',
             'password' => 'required|min:5',
         ]);
-        session(['key' => 'value']);
 
-        $dataPlayer = $repository->detailPlayer($request->username, $request->password);
-        if(!$dataPlayer)
+        $dataPlayer = $repository->detailPlayerByUsername($request->username);
+        if($dataPlayer){
+            $dataPlayerCheckPassowrd = $repository->detailPlayer($request->username, $request->password);
+            if(!$dataPlayerCheckPassowrd){
+                return view('/player/form')->withErrors(['', 'Data Player Not Found ']);
+            }
+        } else {
             $dataPlayer = $repository->createPlayer($request);
+        }
         
         $this->setSessionPlayer($dataPlayer);
         

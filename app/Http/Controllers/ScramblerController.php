@@ -4,10 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Repository\PlayerRepository;
 use App\Repository\ScoreRepository;
+use App\Repository\ResultRepository;
+use App\Traits\ScramblerTrait;
 use Illuminate\Http\Request;
 
 class ScramblerController extends Controller
 {
+    use ScramblerTrait;
+
     /**
      * Create a new controller instance.
      *
@@ -23,38 +27,57 @@ class ScramblerController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
+
+    public function index(Request $request)
+    {
+        $request->session()->flush();
+        return view('/welcome');
+
+    }
     public function playground(Request $request)
     {
         $scoreRepo  = new ScoreRepository();
         $playerRepo = new PlayerRepository();
-        $dataPlayer = [
-            'username' => $request->session()->get('username'),
-            'password' => $request->session()->get('password'),
-        ];
-
-        $dataPlayer = $playerRepo->detailPlayer($dataPlayer['username'], $dataPlayer['password']);
         $score = 0;
-        $scorePlayer = $scoreRepo->scoreByPlayerId($dataPlayer->id);
+        $scorePlayer = $scoreRepo->scoreByPlayerId($request->session()->get('player_id'));
         if($scorePlayer)
             $score = $scorePlayer->score;
 
         return view('/scrambler/playground', [
-            'dataPlayer' => $dataPlayer,
             'score'     => $score
         ]);
     }
 
     public function check(Request $request)
     {
-        echo "<pre>";
-        die(print_r($request->all()));
+        $resultRepo = new ResultRepository();
+        $playerRepo = new PlayerRepository();
+
+        $request->validate([
+            'original_word' => 'required',
+            'form'          => 'required',
+        ]);
+
+        $guessWord = $this->queryParamToArray($request->form);
+        $message   = 'Awesome! It\'s Correct. The Answer is (' . $request->original_word. ')';
+        $status    =  true;
+        if($guessWord != $request->original_word){
+            $message = "Sorry , It's Incorrect";
+            $status  = false;
+        }
+
+        $resultRepo->saveResult($request->session()->get('player_id'), $guessWord, $request->original_word, $status);
+
+        return response()->json([
+            'error'   => false,
+            'message' => $message,
+        ], 200);
     }
 
     public function generate(Request $request)
     {
-        return response()->json(array('word' => "INI WORD"), 200);
+        $word = $this->generateWord($request);
 
-        echo "<pre>";
-        die(print_r($request->all()));
+        return response()->json($word, 200);
     }
 }
