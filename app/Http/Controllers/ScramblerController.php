@@ -52,13 +52,13 @@ class ScramblerController extends Controller
     public function check(Request $request)
     {
         $resultRepo = new ResultRepository();
-        $playerRepo = new PlayerRepository();
         $scoreRepo  = new ScoreRepository();
         $playerId   = $request->session()->get('player_id');
 
         $request->validate([
             'original_word' => 'required',
             'form'          => 'required',
+            'scramble_word' => 'required',
         ]);
 
         DB::beginTransaction();
@@ -72,7 +72,7 @@ class ScramblerController extends Controller
                 $status  = false;
             }
     
-            $resultRepo->saveResult($playerId, $guessWord, $request->original_word, $status);
+            $resultRepo->saveResult($playerId, $guessWord, $request->original_word, $request->scramble_word, $status);
     
             $scorePlayer = $scoreRepo->scoreByPlayerId($playerId);
             if(!$scorePlayer){

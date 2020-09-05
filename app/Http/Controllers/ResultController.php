@@ -12,7 +12,6 @@ class ResultController extends Controller
         $scoreRepo = new ResultRepository();
         $getScore  = $scoreRepo->list($request->session()->get('player_id'));
 
-        dd($getScore);
         return view('/result/history',[
             'scores' => $getScore
         ]);
