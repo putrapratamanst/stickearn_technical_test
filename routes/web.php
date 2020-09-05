@@ -27,3 +27,4 @@ Route::get('/scrambler/playground', 'ScramblerController@playground')->middlewar
 Route::post('/scrambler/check', 'ScramblerController@check')->middleware('check-session');;
 Route::get('/scrambler/generate', 'ScramblerController@generate')->middleware('check-session');;
 Route::get('/score/get', 'ScoreController@getScore')->middleware('check-session');;
+Route::get('/result/history', 'ResultController@history')->middleware('check-session');;
