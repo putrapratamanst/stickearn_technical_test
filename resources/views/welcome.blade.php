@@ -16,6 +16,10 @@
     <span style=" font-family: 'Nunito Sans' ;font-size: 22px;"> Click <a href="/player/form" class="btn btn-dark blink">PLAY</a> To Start the Game</span>
 
 </p>
-
+<div class="dashboard-admin">
+    <a href="/home">
+        Dashboard Admin
+    </a>
+</div>
 
 @endsection
