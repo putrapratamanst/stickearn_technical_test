@@ -38,7 +38,6 @@ class ScramblerController extends Controller
     public function playground(Request $request)
     {
         $scoreRepo  = new ScoreRepository();
-        $playerRepo = new PlayerRepository();
         $score = 0;
         $scorePlayer = $scoreRepo->scoreByPlayerId($request->session()->get('player_id'));
         if($scorePlayer)
