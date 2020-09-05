@@ -18,10 +18,16 @@
                 @foreach ($scores as $score)
 
                 <li>
-                    <a target="_blank" href="https://www.totoprayogo.com/#">New Web Design</a>
-                    <a href="#" class="float-right">21 March, 2014</a>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque scelerisque diam non nisi semper, et elementum lorem ornare. Maecenas placerat facilisis mollis. Duis sagittis ligula in sodales vehicula....</p>
+                    <a href="#" style="color:<?= $score->status == 0 ? "red" : "##0056b3" ?>">
+                        {{ $score->status == 0 ? "INCORRECT" : "CORRECT" }}</a>
+                    <a href="#" class="float-right">{{ $score->created_at }}</a>
+                    <p>
+                        Scramble Word: {{ $score->scramble_word}} <br>
+                        Guess Word: {{ $score->answer}} <br>
+                        Correct Word: <b>{{ $score->original_word}}</b>
+                    </p>
                 </li>
+                <hr>
                 @endforeach
             </ul>
         </div>
