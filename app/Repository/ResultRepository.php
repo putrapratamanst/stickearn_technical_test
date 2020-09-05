@@ -12,6 +12,11 @@ class ResultRepository
             ->where('original_word', $word)
             ->first();
     }
+    public static function list($idPlayer)
+    {
+        return Result::where('player_id', $idPlayer)
+            ->get();
+    }
 
     public static function saveResult($playerId, $guessWord, $originalWord, $status)
     {
