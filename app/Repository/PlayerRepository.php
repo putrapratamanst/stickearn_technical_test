@@ -28,4 +28,9 @@ class PlayerRepository
         return Player::where('username', $username)
             ->first();
     }
+
+    public static function listPlayer()
+    {
+        return Player::get();
+    }
 }
