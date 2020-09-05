@@ -15,14 +15,16 @@ class ResultRepository
     public static function list($idPlayer)
     {
         return Result::where('player_id', $idPlayer)
+            ->orderByDesc('id')
             ->get();
     }
 
-    public static function saveResult($playerId, $guessWord, $originalWord, $status)
+    public static function saveResult($playerId, $guessWord, $originalWord, $scrambleWord, $status)
     {
         $model                 = new Result();
         $model->player_id      = $playerId;
         $model->answer         = $guessWord;
+        $model->scramble_word  = $scrambleWord;
         $model->original_word  = $originalWord;
         $model->status         = $status;
 
