@@ -12,7 +12,15 @@ class ResultRepository
             ->where('original_word', $word)
             ->first();
     }
+
     public static function list($idPlayer)
+    {
+        return Result::where('player_id', $idPlayer)
+            ->orderByDesc('id')
+            ->get();
+    }
+
+    public static function listAll($idPlayer)
     {
         return Result::where('player_id', $idPlayer)
             ->orderByDesc('id')
