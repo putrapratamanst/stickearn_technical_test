@@ -7,6 +7,7 @@ use App\Repository\ScoreRepository;
 use App\Repository\ResultRepository;
 use App\Traits\ScramblerTrait;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ScramblerController extends Controller
 {
@@ -52,22 +53,39 @@ class ScramblerController extends Controller
     {
         $resultRepo = new ResultRepository();
         $playerRepo = new PlayerRepository();
+        $scoreRepo  = new ScoreRepository();
+        $playerId   = $request->session()->get('player_id');
 
         $request->validate([
             'original_word' => 'required',
             'form'          => 'required',
         ]);
 
-        $guessWord = $this->queryParamToArray($request->form);
-        $message   = 'Awesome! It\'s Correct. The Answer is (' . $request->original_word. ')';
-        $status    =  true;
-        if($guessWord != $request->original_word){
-            $message = "Sorry , It's Incorrect";
-            $status  = false;
+        DB::beginTransaction();
+        try {
+
+            $guessWord  = $this->queryParamToArray($request->form);
+            $message    = 'Awesome! It\'s Correct. The Answer is (' . $request->original_word. ')';
+            $status     =  true;
+            if(strcasecmp($guessWord, $request->original_word) != 0){
+                $message = "Sorry , It's Incorrect";
+                $status  = false;
+            }
+    
+            $resultRepo->saveResult($playerId, $guessWord, $request->original_word, $status);
+    
+            $scorePlayer = $scoreRepo->scoreByPlayerId($playerId);
+            if(!$scorePlayer){
+                $scoreRepo->saveScore($playerId, $status);
+            } else {
+                $scoreRepo->updateScore($playerId, $status);
+            }
+        } catch (Throwable $e){
+            DB::rollBack();
+            report($e);
         }
 
-        $resultRepo->saveResult($request->session()->get('player_id'), $guessWord, $request->original_word, $status);
-
+        DB::commit();
         return response()->json([
             'error'   => false,
             'message' => $message,
