@@ -68,8 +68,8 @@ body{
 	left: 50%;
     top: 50%;
     width: 230px;
-    margin-top: -69px; /* height/2 */
-    margin-left: -115px; /* width/2 */
+    margin-top: -69px;
+    margin-left: -115px;
     position: absolute;
 }
 
